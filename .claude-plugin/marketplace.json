@@ -1,0 +1,27 @@
+{
+  "name": "dev-blog-writer",
+  "owner": {
+    "name": "Unknown Studio",
+    "email": "hello@unknownstudio.dev"
+  },
+  "metadata": {
+    "description": "Write dev blog posts that sound human for Substack, Medium, Hashnode, Dev.to, and Ghost.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "dev-blog-writer",
+      "source": "./",
+      "description": "Write dev blog posts that sound human for Substack, Medium, Hashnode, Dev.to, and Ghost. Includes setup flow, anti-AI-voice guidelines, and platform-specific formatting.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Unknown Studio"
+      },
+      "homepage": "https://github.com/unknown-studio-dev/dev-blog-writer",
+      "repository": "https://github.com/unknown-studio-dev/dev-blog-writer",
+      "license": "MIT",
+      "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog"],
+      "category": "content"
+    }
+  ]
+}

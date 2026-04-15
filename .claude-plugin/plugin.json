@@ -1,0 +1,10 @@
+{
+  "name": "dev-blog-writer",
+  "version": "0.1.0",
+  "description": "Write dev blog posts that sound human for Substack, Medium, Hashnode, Dev.to, and Ghost. Includes setup flow, anti-AI-voice guidelines, and platform-specific formatting.",
+  "author": {
+    "name": "Unknown Studio"
+  },
+  "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog"],
+  "license": "MIT"
+}
