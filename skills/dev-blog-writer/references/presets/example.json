@@ -1,0 +1,52 @@
+{
+  "company": {
+    "name": "Your Company",
+    "url": "https://yourcompany.com",
+    "tagline": "One-line description of what your company does",
+    "methodology": "How you build things — e.g. agile sprints, AI-assisted development, move-fast-and-ship, etc."
+  },
+  "products": [
+    {
+      "name": "Your Product",
+      "description": "One-line description of the product",
+      "type": "mobile app|SaaS|web app|open-source tool|CLI|API|etc",
+      "url": "https://yourcompany.com/product",
+      "technical_context": "Key technical details worth mentioning in posts — stack, architecture decisions, interesting challenges. This helps the skill write technically credible content."
+    }
+  ],
+  "team": {
+    "size": 1,
+    "members": [
+      {"name": "Your Name", "role": "Founder", "focus": "Product & Engineering"}
+    ],
+    "voice": "solo"
+  },
+  "audience": "developers|indie-hackers|users|mixed",
+  "tone": "casual|professional-friendly|technical-concise",
+  "language": {
+    "primary": "english|vietnamese|mixed",
+    "vietnamese": {
+      "regional_tone": "southern|northern|neutral",
+      "formality": "ultra-casual|semi-casual|semi-formal",
+      "communities": ["Facebook Groups", "Viblo"]
+    }
+  },
+  "platform": {
+    "default": "substack|medium|hashnode|devto|ghost|facebook|threads",
+    "all": ["substack"],
+    "blog_url": "https://yourblog.substack.com",
+    "social": {
+      "facebook_page": "",
+      "threads": ""
+    }
+  },
+  "post_sizes": ["short", "medium", "long"],
+  "publishing": {
+    "mcp_available": false,
+    "platforms_connected": [],
+    "mcp_provider": null
+  },
+  "reference_posts": [
+    "https://yourblog.substack.com/p/your-best-post"
+  ]
+}

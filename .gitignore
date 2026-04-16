@@ -1,3 +1,5 @@
 .DS_Store
 dev-blog-writer.plugin
-skills/dev-blog-writer/references/presets/
+# Company-specific presets (keep example.json only)
+skills/dev-blog-writer/references/presets/*
+!skills/dev-blog-writer/references/presets/example.json
