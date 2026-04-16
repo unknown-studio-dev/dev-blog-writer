@@ -51,6 +51,20 @@ The plugin learns your writing style through a feedback loop. After each draft, 
 
 The plugin includes anti-AI-voice guidelines for both English and Vietnamese that catch and fix patterns that make writing sound machine-generated. Posts come out sounding like a real person wrote them — not a language model.
 
+## Skill-gate (quality enforcement)
+
+The plugin includes built-in hooks that prevent the agent from drafting before reading critical reference files. This solves a common problem where AI agents skip configuration and reference files out of overconfidence, producing generic output.
+
+Before any Write or Edit call, the gate checks that the agent has read:
+
+- **config.json** — your company, products, audience, and tone settings
+- **anti-ai-voice.md** — patterns that make writing sound machine-generated
+- **A platform file** — formatting rules for the target platform (Substack, Facebook, etc.)
+
+If any are missing, the Write/Edit is blocked with a message telling the agent exactly which files to read. The gate activates only when the agent starts reading skill files, so it won't interfere with unrelated work. It also fails open — if something breaks, the gate approves rather than blocking the session.
+
+Inspired by [Thoth](https://github.com/unknown-studio-dev/thoth)'s gate mechanism, simplified for single-skill enforcement.
+
 ## Install
 
 ### Cowork (recommended)
