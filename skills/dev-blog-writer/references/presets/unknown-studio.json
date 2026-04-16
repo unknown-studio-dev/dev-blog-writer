@@ -1,0 +1,68 @@
+{
+  "company": {
+    "name": "Unknown Studio",
+    "url": "https://unknownstudio.dev",
+    "tagline": "Small Team. Scalable Solutions. Powered by AI.",
+    "methodology": "AI-driven specs, rapid prototyping (functional prototypes in days), iterative refinement. Uses HoangSa internally for spec-driven, bounded-context development across all products."
+  },
+  "products": [
+    {
+      "name": "InstaNote",
+      "description": "Mobile app using speech recognition AI to turn voice notes into organized text",
+      "type": "mobile app (iOS & Android)",
+      "url": "https://unknownstudio.dev/showcase-instanote",
+      "technical_context": "AI voice-to-text, auto-categorization, smart tagging, cross-platform cloud sync. Supports Vietnamese and English. Key technical angles: speech recognition accuracy, on-device vs cloud processing, multilingual challenges, sync architecture."
+    },
+    {
+      "name": "Cuối Tuần Đi Đâu",
+      "description": "Travel/family app for discovering 1,000+ family-friendly spots in Vietnam with AI-driven recommendations",
+      "type": "web app",
+      "url": "https://cuoituandidau.vn",
+      "technical_context": "AI recommendation engine matched to family needs. Reviews from real parents. Free forever, community-built. 1,000+ locations nationwide. Key technical angles: AI recommendations, community-driven data quality, location data challenges in Vietnam."
+    },
+    {
+      "name": "HoangSa",
+      "description": "Open-source context engineering system for Claude Code that eliminates AI context loss",
+      "type": "open-source tool",
+      "url": "https://github.com/unknown-studio-dev/hoangsa",
+      "technical_context": "Spec-driven development (DESIGN-SPEC + TEST-SPEC). DAG-based execution (parallel waves, sequential dependencies). Context engineering via bounded contexts with context_pointers. Slash command pipeline: /hoangsa:menu → /hoangsa:prepare → /hoangsa:cook → /hoangsa:taste → /hoangsa:plate → /hoangsa:ship. 3-tier verification (static analysis, behavioral tests x3, semantic review). GitNexus code intelligence (call graphs, impact analysis). Task manager sync (ClickUp, Asana). 15 framework addons. Rust CLI + Node.js installer. Install via npx hoangsa-cc. What makes it different: treats large projects as orchestration problems with structural contracts, bounded task dispatch, DAG scheduling, and integrated dev workflows. This is the backbone of how Unknown Studio builds its own products."
+    }
+  ],
+  "team": {
+    "size": 2,
+    "members": [
+      {"name": "Khang Truong", "role": "Founder", "focus": "Product & Strategy"},
+      {"name": "Van Than", "role": "Co-Founder", "focus": "Engineering & Infrastructure"}
+    ],
+    "voice": "solo"
+  },
+  "audience": "mixed",
+  "tone": "casual",
+  "language": {
+    "primary": "mixed",
+    "vietnamese": {
+      "regional_tone": "southern",
+      "formality": "semi-casual",
+      "communities": ["Facebook Groups", "Viblo"]
+    }
+  },
+  "platform": {
+    "default": "substack",
+    "all": ["substack", "facebook", "threads"],
+    "blog_url": "https://unknownstudio.substack.com",
+    "social": {
+      "facebook_page": "",
+      "threads": ""
+    }
+  },
+  "post_sizes": ["short", "medium", "long"],
+  "publishing": {
+    "mcp_available": false,
+    "platforms_connected": [],
+    "mcp_provider": null
+  },
+  "reference_posts": [
+    "https://unknownstudio.substack.com/p/minh-build-app-ghi-am-y-tuong-vi",
+    "https://unknownstudio.substack.com/p/ngay-2-tu-y-tuong-den-30-man-hinh"
+  ]
+}

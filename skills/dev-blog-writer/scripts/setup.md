@@ -29,6 +29,7 @@ Ask these in order. If the user provides a website URL, try to fetch it and pre-
   - Indie hackers and founders
   - Developers and engineers
   - Potential users of your products
+  - Vietnamese tech community
   - Mixed audience
   - Other (describe)
 
@@ -39,20 +40,67 @@ Ask these in order. If the user provides a website URL, try to fetch it and pre-
   - Technical and concise (straight to the point)
   - Other (describe)
 
-### 6. Platform
+### 6. Language preferences
+- What language do you write in? Options:
+  - English only
+  - Vietnamese only
+  - Mixed (Vietnamese body + English tech terms) — recommended for Vietnamese dev community
+  - Bilingual (write both versions)
+
+If Vietnamese or Mixed is selected, ask:
+
+#### 6a. Vietnamese style
+- Regional tone preference:
+  - Southern (Sài Gòn) — casual, "anh em", more emotional, storytelling
+  - Northern (Hà Nội) — slightly more measured, "các bạn" sometimes used
+  - Neutral — works for the widest audience (default)
+
+#### 6b. Formality level
+- Ultra-casual (Facebook Group style — slang, emoji, interjections)
+- Semi-casual (Blog/Viblo style — personal but structured)
+- Semi-formal (Professional blog — warm but polished)
+
+#### 6c. Vietnamese community context
+- Which Vietnamese tech communities are you active in? (optional, for tone reference)
+  - Facebook Groups (which ones?)
+  - Viblo
+  - Threads Vietnamese tech scene
+  - Other
+
+### 7. Platform
 - Where do you publish? Options:
   - Substack
   - Medium
   - Hashnode
   - Dev.to
   - Ghost (self-hosted)
+  - Facebook (Page and/or Groups)
+  - Threads
   - Multiple (pick a default)
 
-### 7. Blog URL
+### 8. Post sizes
+- What types of posts do you typically write? (select all that apply):
+  - Short posts (50-250 words) — social media, quick updates
+  - Medium posts (250-800 words) — build-in-public updates, announcements
+  - Long posts (800+ words) — blog posts, technical deep-dives
+  - All of the above
+
+### 9. Blog URL
 - What's your blog URL? (for linking in posts)
 
-### 8. Existing posts (optional)
+### 10. Social profiles (optional)
+- Facebook Page URL?
+- Threads profile URL?
+- Other social profiles?
+
+### 11. Existing posts (optional)
 - Do you have any published posts I can read for tone reference? (URLs)
+
+### 12. MCP Publishing (optional)
+- Do you want to publish directly from here? If yes, we'll check for available publishing MCPs.
+  - Run `search_mcp_registry` for platform publishing tools
+  - If MCPs found, offer to connect them via `suggest_connectors`
+  - Document which platforms have direct publishing enabled
 
 ## Saving the config
 
@@ -84,9 +132,28 @@ After collecting answers, save to `config.json` in the skill directory with this
   },
   "audience": "mixed",
   "tone": "casual",
+  "language": {
+    "primary": "mixed",
+    "vietnamese": {
+      "regional_tone": "southern",
+      "formality": "semi-casual",
+      "communities": ["Facebook Groups", "Viblo"]
+    }
+  },
   "platform": {
     "default": "substack",
-    "blog_url": "https://your.substack.com"
+    "all": ["substack", "facebook", "threads"],
+    "blog_url": "https://your.substack.com",
+    "social": {
+      "facebook_page": "https://facebook.com/yourpage",
+      "threads": "https://threads.net/@yourhandle"
+    }
+  },
+  "post_sizes": ["short", "medium", "long"],
+  "publishing": {
+    "mcp_available": false,
+    "platforms_connected": [],
+    "mcp_provider": null
   },
   "reference_posts": []
 }
@@ -99,3 +166,9 @@ Check `references/presets/` for example configs. If the user's setup is similar 
 ## After setup
 
 Confirm the config back to the user in a brief summary. Tell them they can reconfigure anytime by saying "reconfigure blog settings".
+
+If the user selected Vietnamese language, mention that the skill will:
+- Use natural Vietnamese code-switching (Vietnamese narrative + English tech terms)
+- Apply Vietnamese emotional expression and particles
+- Follow anti-AI voice patterns specific to Vietnamese
+- Adapt tone to their regional preference

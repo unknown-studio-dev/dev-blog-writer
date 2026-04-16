@@ -1,10 +1,10 @@
 {
   "name": "dev-blog-writer",
-  "version": "0.1.0",
-  "description": "Write dev blog posts that sound human for Substack, Medium, Hashnode, Dev.to, and Ghost. Includes setup flow, anti-AI-voice guidelines, and platform-specific formatting.",
+  "version": "0.2.0",
+  "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Supports Substack, Medium, Hashnode, Dev.to, Ghost, Facebook, and Threads. Includes short/medium/long post formats, anti-AI-voice guidelines, Vietnamese writing voice, and MCP publishing integration.",
   "author": {
     "name": "Unknown Studio"
   },
-  "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog"],
+  "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog", "facebook", "threads", "vietnamese", "social-media", "mcp-publishing"],
   "license": "MIT"
 }
