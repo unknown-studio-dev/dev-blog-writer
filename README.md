@@ -38,28 +38,40 @@ Just ask naturally:
 - "Viết bài về feature mới mình vừa ship"
 - "Tản mạn về hành trình build InstaNote tuần này"
 
+## Adaptive voice learning
+
+The plugin learns your writing style through a feedback loop. After each draft, it may ask for feedback on tone, word choices, and structure. Over time:
+
+- It builds a **voice profile** with your preferences (stored in `voice-profile.json`)
+- It asks less as it gets better at matching your voice
+- Confidence is tracked per platform and post type — it might nail your Facebook posts but still be learning your Substack style
+- You can give one-off overrides without resetting what it's learned
+
 ## What makes it different
 
 The plugin includes anti-AI-voice guidelines for both English and Vietnamese that catch and fix patterns that make writing sound machine-generated. Posts come out sounding like a real person wrote them — not a language model.
 
 ## Install
 
-### Using Claude Marketplace (Claude Code)
+### Cowork (recommended)
 
-Install directly in Claude Code with two commands:
+Add this repo as a marketplace source in Cowork:
+
+1. Open **Customize** (top-left) → **Plugins** → **Personal** tab
+2. Click the **+** button to add a marketplace
+3. Enter `unknown-studio-dev/dev-blog-writer` and click **Sync**
+4. The plugin appears in your Personal plugins — toggle it on
+
+This keeps the plugin in sync with the latest version from the repo.
+
+### Claude Code — via marketplace
 
 ```
 /plugin marketplace add unknown-studio-dev/dev-blog-writer
 /plugin install dev-blog-writer@dev-blog-writer
 ```
 
-### Using .plugin file (Cowork)
-
-Download the latest `.plugin` file from [Releases](https://github.com/unknown-studio-dev/dev-blog-writer/releases) and double-click it, or drag it into Cowork.
-
-### Manual (Claude Code)
-
-Clone and add directly:
+### Claude Code — manual
 
 ```bash
 git clone https://github.com/unknown-studio-dev/dev-blog-writer.git

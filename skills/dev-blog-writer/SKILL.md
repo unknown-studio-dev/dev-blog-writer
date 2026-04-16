@@ -8,32 +8,48 @@ description: >
   "quick update", or wants to share their building journey, explain a technical decision,
   or announce something about their product. Also use when the user asks for "blog outlines",
   "post ideas", "improving a draft", or "publish this". Supports Substack, Medium, Hashnode,
-  Dev.to, Ghost, Facebook (Pages and Groups), and Threads. Handles build-in-public updates,
-  technical deep-dives, product announcements, studio/process posts, short social posts,
-  engagement posts, and product teasers. Supports writing in English, Vietnamese, or mixed
-  (Vietnamese body + English tech terms). Even if the user just says "I want to write
-  something about X" or "mình muốn viết về X", this skill should be triggered.
+  Dev.to, Ghost, Facebook, and Threads. Handles build-in-public updates,
+  technical deep-dives, announcements, studio/process posts, social posts,
+  and product teasers. Supports English, Vietnamese, or mixed language.
+  Even if the user just says "I want to write something about X" or
+  "mình muốn viết về X", this skill should be triggered.
 ---
 
 # Dev Blog Writer
 
 Help makers, founders, and dev teams write posts that sound human, earn technical respect, and turn readers into users. Supports blog posts, social media posts, and everything in between — in English, Vietnamese, or mixed.
 
+## Data directory (important — read this first)
+
+The skill's own directory is **read-only** when installed as a plugin. All user data files (`config.json`, `voice-profile.json`) must be stored in a writable data directory, not alongside SKILL.md.
+
+**How to resolve the data directory:**
+
+1. Look for an existing `config.json` by checking these paths in order:
+   - `<workspace>/.claude/dev-blog-writer/config.json` (the primary writable location)
+   - `<skill-directory>/config.json` (legacy — if found here, migrate it to the writable location)
+2. If no config exists anywhere, create the data directory at `<workspace>/.claude/dev-blog-writer/` and run first-time setup.
+
+In Cowork, `<workspace>` is typically the mounted user directory (the parent of `.claude/`). Use `mkdir -p` to create the data directory if it doesn't exist.
+
+Throughout this skill, **"data directory"** always means `<workspace>/.claude/dev-blog-writer/`. All references to saving `config.json` or `voice-profile.json` mean saving to this writable location — never to the skill's own read-only directory.
+
 ## First-time setup
 
-On first use (no `config.json` exists in this skill's directory), run the setup flow:
+On first use (no `config.json` exists in the data directory), run the setup flow:
 
-1. Read `scripts/setup.md` for the interactive setup questions
-2. Walk the user through configuration (company, products, tone, audience, platform, language, post sizes)
-3. Save results to `config.json` in this skill's directory
+1. Create the data directory: `<workspace>/.claude/dev-blog-writer/`
+2. Read `scripts/setup.md` for the interactive setup questions
+3. Walk the user through configuration (company, products, tone, audience, platform, language, post sizes)
+4. Save results to `config.json` in the data directory
 
-If `config.json` exists, load it silently at the start. The user can re-run setup anytime by saying "reconfigure blog settings" or "change my blog setup".
+If `config.json` exists in the data directory, load it silently at the start. The user can re-run setup anytime by saying "reconfigure blog settings" or "change my blog setup".
 
 Check `references/presets/` for example configs the user can start from.
 
 ## Config-driven context
 
-Read `config.json` to understand who you're writing for. It contains:
+Read `config.json` from the data directory to understand who you're writing for. It contains:
 - Company name, URL, tagline, and product descriptions
 - Team info and methodology notes
 - Target audience and tone preferences
@@ -44,6 +60,14 @@ Read `config.json` to understand who you're writing for. It contains:
 - Any product-specific context the user added during setup
 
 Use this context to personalize every post. Never ask for info that's already in the config.
+
+## Voice profile (learned preferences)
+
+If `voice-profile.json` exists in the data directory, load it silently alongside `config.json`. It contains writing preferences the skill has learned from previous feedback — tone rules, vocabulary preferences, structural patterns, and platform-specific notes.
+
+Apply all voice profile rules before writing any draft. They layer on top of the voice principles below and can override them — the user's actual voice always trumps generic guidelines. See `references/feedback-engine.md` for the full schema and how rules are applied.
+
+If `voice-profile.json` doesn't exist, that's fine — it gets created automatically in the data directory on the first feedback interaction. Don't create it during setup.
 
 ## Core workflow
 
@@ -74,9 +98,22 @@ When the user wants to write a post:
 
 7. **Deliver the post** in the appropriate format for the platform (see Output formats below).
 
-8. **Offer to publish** if MCP publishing is configured (see Publishing section below).
+8. **Collect feedback (adaptive).** How you ask depends on the confidence level for this post's context (platform + size + post type). Read `references/feedback-engine.md` for the full logic — here's the short version:
 
-9. **Offer cross-platform versions** if the user publishes to multiple platforms. A blog post can become a Facebook teaser, a Threads thread, etc.
+   - **`learning`** (default for new contexts): Ask for detailed feedback. *"How does this feel? Anything you'd change about the tone, word choices, structure, or opening? Or is this good to go?"*
+   - **`calibrated`** (4+ consecutive approvals): Ask lightly. *"Anything to tweak, or good to go?"*
+   - **`confident`** (8+ consecutive approvals): Skip asking. Just deliver and add: *"If anything feels off, just let me know."*
+
+   When feedback arrives, classify it and respond:
+   - **Substantive feedback** (specific corrections or preferences): Extract preference rules, store in `voice-profile.json`, reset approval streak for this context, revise the draft, and re-deliver. If already at `confident` level, first ask: *"Got it — should I treat this as your new default going forward, or just for this post?"*
+   - **Minor adjustment** (small one-off tweaks): Apply the change, don't update voice profile, keep the streak.
+   - **Approval** ("looks good", "ship it", etc.): Log it, increment streak, recalculate confidence, move on.
+
+   Repeat the feedback-revise cycle until the user approves. Then proceed to publishing.
+
+9. **Offer to publish** if MCP publishing is configured (see Publishing section below).
+
+10. **Offer cross-platform versions** if the user publishes to multiple platforms. A blog post can become a Facebook teaser, a Threads thread, etc.
 
 ## Voice principles (always apply these, even before loading references)
 
@@ -128,6 +165,7 @@ Load these on demand, not all at once:
 | File | When to load |
 |------|-------------|
 | `references/anti-ai-voice.md` | Before writing ANY draft |
+| `references/feedback-engine.md` | When processing feedback or updating voice profile |
 | `references/vietnamese-voice.md` | When writing in Vietnamese or mixed language |
 | `references/post-templates.md` | When you need structure for a specific post type/size |
 | `references/platforms/substack.md` | When writing for Substack |
@@ -137,7 +175,8 @@ Load these on demand, not all at once:
 | `references/platforms/facebook.md` | When writing for Facebook (Pages or Groups) |
 | `references/platforms/threads.md` | When writing for Threads |
 | `references/mcp-integration.md` | When publishing or setting up publishing |
-| `config.json` | At the start of every session |
+| `<data-dir>/config.json` | At the start of every session |
+| `<data-dir>/voice-profile.json` | At the start of every session (if it exists) |
 | `scripts/setup.md` | Only during first-time setup or reconfiguration |
 | `references/presets/*.json` | Only during setup, as starting templates |
 
