@@ -1,6 +1,8 @@
 # Dev Blog Writer Setup
 
-Run this flow when `config.json` doesn't exist, or when the user says "reconfigure blog settings" or "change my blog setup".
+Run this flow when `config.json` doesn't exist in the data directory, or when the user says "reconfigure blog settings" or "change my blog setup".
+
+**Important:** The skill directory is read-only. All data files (`config.json`, `voice-profile.json`) must be saved to the writable data directory at `<workspace>/.claude/dev-blog-writer/`. Create this directory with `mkdir -p` before saving anything.
 
 ## Setup questions
 
@@ -68,15 +70,18 @@ If Vietnamese or Mixed is selected, ask:
   - Other
 
 ### 7. Platform
-- Where do you publish? Options:
+- Where do you publish? Present ALL of these options to the user — do not truncate or summarize the list:
   - Substack
   - Medium
   - Hashnode
   - Dev.to
   - Ghost (self-hosted)
+  - Viblo
   - Facebook (Page and/or Groups)
   - Threads
   - Multiple (pick a default)
+  - Other (let the user type)
+- If the user selects multiple platforms, ask which one is their primary/default.
 
 ### 8. Post sizes
 - What types of posts do you typically write? (select all that apply):
@@ -102,9 +107,16 @@ If Vietnamese or Mixed is selected, ask:
   - If MCPs found, offer to connect them via `suggest_connectors`
   - Document which platforms have direct publishing enabled
 
+### 13. Voice profile (optional, for returning users)
+- If the user is migrating from a previous setup or reinstalling the skill, ask:
+  - Do you have an existing `voice-profile.json` you'd like to import?
+  - If yes: copy it into the data directory (`<workspace>/.claude/dev-blog-writer/`). The skill will pick it up and apply all learned preferences immediately.
+  - If no: that's fine — the voice profile builds itself over time through the feedback loop. No action needed.
+- If the user has existing published posts (from step 11), offer to bootstrap a starter voice profile by analyzing 2-3 posts for tone, vocabulary patterns, and structural preferences. Save the analysis as an initial `voice-profile.json` with a note that these are inferred, not confirmed by feedback. The confidence level starts at `learning` regardless.
+
 ## Saving the config
 
-After collecting answers, save to `config.json` in the skill directory with this structure:
+After collecting answers, save to `config.json` in the **data directory** (`<workspace>/.claude/dev-blog-writer/`) with this structure:
 
 ```json
 {
@@ -172,3 +184,9 @@ If the user selected Vietnamese language, mention that the skill will:
 - Apply Vietnamese emotional expression and particles
 - Follow anti-AI voice patterns specific to Vietnamese
 - Adapt tone to their regional preference
+
+Also mention that the skill learns from feedback:
+- After each draft, it may ask for feedback on tone, structure, and word choices
+- Over time, it asks less as it learns the user's preferences
+- All learned preferences are stored in `voice-profile.json` and applied automatically to future drafts
+- The user can reset the voice profile anytime by saying "reset my voice profile" or deleting `voice-profile.json`
