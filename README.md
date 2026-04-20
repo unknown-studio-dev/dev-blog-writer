@@ -92,3 +92,12 @@ git clone https://github.com/unknown-studio-dev/dev-blog-writer.git
 cd dev-blog-writer
 /plugin install ./
 ```
+
+
+## Author
+
+Khang Truong — [@keitruong191](https://github.com/keitruong191)
+
+## License
+
+MIT
