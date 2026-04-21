@@ -4,11 +4,11 @@ Write blog posts and social media content that sounds human, earns technical res
 
 ## What it does
 
-This plugin helps makers, founders, and dev teams draft content for Substack, Medium, Hashnode, Dev.to, Ghost, Facebook (Pages and Groups), and Threads. It supports multiple post sizes and types:
+This plugin helps makers, founders, and dev teams draft content for Substack, Medium, Hashnode, Dev.to, Ghost, Viblo, Reddit, Facebook (Pages and Groups), and Threads. It supports multiple post sizes and types:
 
 - **Short posts** (50-250 words): Quick wins, hot takes, questions, product teasers — for Facebook and Threads
-- **Medium posts** (250-800 words): Build-in-public updates, announcements, lessons learned — for social and short blogs
-- **Long posts** (800+ words): Technical deep-dives, product announcements, studio/process posts — for blog platforms
+- **Medium posts** (250-800 words): Build-in-public updates, announcements, lessons learned — for social, Reddit, and short blogs
+- **Long posts** (800+ words): Technical deep-dives, product announcements, studio/process posts — for blog platforms and Reddit
 
 ## Vietnamese writing support
 
@@ -19,6 +19,27 @@ Full support for writing in Vietnamese or mixed (Vietnamese body + English tech 
 - "Tản mạn" storytelling format
 - Regional tone options (Northern/Southern/Neutral)
 - Vietnamese-specific anti-AI patterns to keep writing authentic
+
+## Visual diagrams
+
+For long posts (800+ words), the plugin proactively suggests 1-2 visual diagrams where they would improve comprehension. Diagrams are generated in Mermaid format and automatically adapted for each platform:
+
+- **Native Mermaid** (Dev.to, Hashnode, Viblo): Embedded as code blocks that render directly
+- **PNG fallback** (Medium, Substack, Ghost, Reddit, Facebook, Threads): Rendered to images via MCP tool or exported manually
+
+The plugin picks the right diagram type based on your content — architecture diagrams for technical deep-dives, timelines for build-in-public updates, flowcharts for process posts, cause-effect diagrams for lessons learned. Labels follow your post's language with natural code-switching for technical terms.
+
+## Reddit support
+
+Reddit is the hardest platform to penetrate but drives massive qualified traffic. The plugin includes a comprehensive Reddit strategy guide covering:
+
+- **Karma and account requirements** — warm-up checklist, minimum thresholds, how to build credibility
+- **Self-promotion rules** — the 10% guideline, what gets flagged as spam, how to share without getting banned
+- **Subreddit targeting** — 30+ dev/tech subreddits categorized by content type and promotion tolerance
+- **Value-first hybrid format** — full substance in the self-post, blog link as optional further reading
+- **Reddit-compatible formatting** — 4-space code blocks for Old Reddit, no inline images, subreddit-specific titles
+
+The plugin generates Reddit posts with distinct titles per subreddit, proper flair notes, and the right framing for each community.
 
 ## MCP publishing
 
@@ -35,6 +56,7 @@ Just ask naturally:
 - "Draft a build-in-public update about this week's progress"
 - "Write a Facebook post about our latest milestone"
 - "Post a hot take on Threads about spec-driven development"
+- "Write a Reddit post about this side project for r/SideProject and r/programming"
 - "Viết bài về feature mới mình vừa ship"
 - "Tản mạn về hành trình build InstaNote tuần này"
 

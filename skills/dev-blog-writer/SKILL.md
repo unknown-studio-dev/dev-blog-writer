@@ -41,7 +41,8 @@ On first use (no `config.json` exists in the data directory), run the setup flow
 1. Create the data directory: `<workspace>/.claude/dev-blog-writer/`
 2. Read `scripts/setup.md` for the interactive setup questions
 3. Walk the user through configuration (company, products, tone, audience, platform, language, post sizes)
-4. Save results to `config.json` in the data directory
+4. Check for Mermaid diagram rendering capability (see setup.md step 13)
+5. Save results to `config.json` in the data directory
 
 If `config.json` exists in the data directory, load it silently at the start. The user can re-run setup anytime by saying "reconfigure blog settings" or "change my blog setup".
 
@@ -75,8 +76,8 @@ When the user wants to write a post:
 
 1. **Determine the post size and platform** (skip what you already know from config):
    - Short (50-250 words): Facebook, Threads, quick social updates
-   - Medium (250-800 words): Facebook medium posts, Threads threads, short blog entries
-   - Long (800+ words): Substack, Medium, Hashnode, Dev.to, Ghost, Viblo
+   - Medium (250-800 words): Facebook medium posts, Threads threads, Reddit self-posts, short blog entries
+   - Long (800+ words): Substack, Medium, Hashnode, Dev.to, Ghost, Viblo, Reddit (long self-posts)
    - Which specific platform? Use the default from config if not specified.
 
 2. **Clarify the basics** (skip what you already know from config):
@@ -89,16 +90,19 @@ When the user wants to write a post:
    - Read the platform file from `references/platforms/` matching the target
    - Read `references/anti-ai-voice.md` before writing any draft
    - If Vietnamese or mixed language: also read `references/vietnamese-voice.md`
+   - If long post (800+ words): also read `references/visual-diagrams.md` for diagram guidance
 
 4. **Draft the post** following the loaded template, platform rules, language settings, and anti-AI-voice guidelines.
 
 5. **For long posts: Write the headline last.** Draft 3-5 options after the body is done. For short posts, the hook IS the headline — write it first.
 
-6. **Check the opening.** Read the first 3 sentences (or first 2 lines for short posts). Would you keep reading if this showed up in your feed? If not, rewrite them.
+6. **For long posts: Identify diagram opportunities.** After drafting, review the post and proactively suggest 1-2 sections where a Mermaid diagram would improve comprehension. Read `references/visual-diagrams.md` for the content-type-to-diagram mapping and `references/platform-diagram-support.md` for the correct output format per platform. Only suggest — don't generate until the user agrees. For short/medium posts, skip this step unless the user explicitly asks for a diagram.
 
-7. **Deliver the post** in the appropriate format for the platform (see Output formats below).
+7. **Check the opening.** Read the first 3 sentences (or first 2 lines for short posts). Would you keep reading if this showed up in your feed? If not, rewrite them.
 
-8. **Collect feedback (adaptive).** How you ask depends on the confidence level for this post's context (platform + size + post type). Read `references/feedback-engine.md` for the full logic — here's the short version:
+8. **Deliver the post** in the appropriate format for the platform (see Output formats below). If diagrams were generated, include them in the correct format for the target platform (Mermaid code block for Dev.to/Hashnode/Viblo, PNG for all others). See `references/platform-diagram-support.md`.
+
+9. **Collect feedback (adaptive).** How you ask depends on the confidence level for this post's context (platform + size + post type). Read `references/feedback-engine.md` for the full logic — here's the short version:
 
    - **`learning`** (default for new contexts): Ask for detailed feedback. *"How does this feel? Anything you'd change about the tone, word choices, structure, or opening? Or is this good to go?"*
    - **`calibrated`** (4+ consecutive approvals): Ask lightly. *"Anything to tweak, or good to go?"*
@@ -111,9 +115,9 @@ When the user wants to write a post:
 
    Repeat the feedback-revise cycle until the user approves. Then proceed to publishing.
 
-9. **Offer to publish** if MCP publishing is configured (see Publishing section below).
+10. **Offer to publish** if MCP publishing is configured (see Publishing section below).
 
-10. **Offer cross-platform versions** if the user publishes to multiple platforms. A blog post can become a Facebook teaser, a Threads thread, etc.
+11. **Offer cross-platform versions** if the user publishes to multiple platforms. A blog post can become a Facebook teaser, a Threads thread, etc.
 
 ## Voice principles (always apply these, even before loading references)
 
@@ -168,10 +172,15 @@ Load these on demand, not all at once:
 | `references/feedback-engine.md` | When processing feedback or updating voice profile |
 | `references/vietnamese-voice.md` | When writing in Vietnamese or mixed language |
 | `references/post-templates.md` | When you need structure for a specific post type/size |
+| `references/visual-diagrams.md` | When writing long posts (800+ words) — diagram type mapping, Mermaid guidelines, language rules |
+| `references/platform-diagram-support.md` | When generating diagrams — rendering matrix per platform |
 | `references/platforms/substack.md` | When writing for Substack |
 | `references/platforms/medium.md` | When writing for Medium |
 | `references/platforms/hashnode.md` | When writing for Hashnode |
 | `references/platforms/devto.md` | When writing for Dev.to |
+| `references/platforms/ghost.md` | When writing for Ghost |
+| `references/platforms/viblo.md` | When writing for Viblo |
+| `references/platforms/reddit.md` | When writing for Reddit |
 | `references/platforms/facebook.md` | When writing for Facebook (Pages or Groups) |
 | `references/platforms/threads.md` | When writing for Threads |
 | `references/mcp-integration.md` | When publishing or setting up publishing |
@@ -188,6 +197,7 @@ Deliver as a markdown file containing:
 - **Headline** (H1)
 - **Subtitle** (italic, below headline)
 - **Body** with H2 sections, bold key phrases, code blocks where relevant
+- **Diagrams** (if generated): embedded as Mermaid code blocks for Dev.to/Hashnode/Viblo, or as image references for other platforms. For PNG platforms, also deliver the rendered `.png` files and `.mermaid` source files alongside the markdown.
 - **3-5 alternative headline options** at the end
 - **Suggested tags** (3-5 tags relevant to the post and platform)
 
@@ -198,6 +208,18 @@ Deliver as a markdown file containing:
 - **Body** with minimal formatting (H2 sections optional)
 - **2-3 alternative hooks** at the end
 - **Suggested tags/hashtags**
+
+### Reddit posts
+
+Deliver as a markdown file (`.md`) optimized for Reddit's editor, containing:
+- **Suggested title** (specific, value-driven, under 100 characters)
+- **Target subreddit(s)** with required flair noted
+- **Body** using Reddit-compatible markdown (4-space code indentation, `##` headers not `#`, no inline images)
+- **Blog link attribution** at the bottom (natural phrasing, not promotional)
+- **2-3 alternative titles** — one technical, one story-driven, one provocative/opinion
+- **Subreddit-specific title variations** if posting to multiple communities
+
+For posts with diagrams: include externally-hosted image links. Note if a link post to the blog would be better due to heavy visual content. See `references/platforms/reddit.md` for full formatting rules and strategy.
 
 ### Short posts (Facebook, Threads)
 
@@ -212,8 +234,9 @@ For Threads threads, deliver numbered posts (1/N, 2/N, etc.).
 
 When the user publishes to multiple platforms, offer to generate all versions:
 - Full blog post (markdown)
+- Reddit self-post (Reddit-compatible markdown with subreddit targeting)
 - Facebook medium post (plain text)
 - Threads thread (plain text, numbered)
 - Quick teaser (1-3 sentences + link)
 
-Save each as a separate file with clear naming: `post-title-substack.md`, `post-title-facebook.txt`, `post-title-threads.txt`.
+Save each as a separate file with clear naming: `post-title-substack.md`, `post-title-reddit.md`, `post-title-facebook.txt`, `post-title-threads.txt`.
