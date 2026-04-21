@@ -5,22 +5,22 @@
     "email": "hello@unknownstudio.dev"
   },
   "metadata": {
-    "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Adaptive feedback learning builds a voice profile over time. Includes skill-gate hooks to enforce config reads before drafting.",
-    "version": "0.4.0"
+    "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Now with visual diagram generation and Reddit support. Adaptive feedback learning builds a voice profile over time. Includes skill-gate hooks to enforce config reads before drafting.",
+    "version": "0.5.0"
   },
   "plugins": [
     {
       "name": "dev-blog-writer",
       "source": "./",
-      "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Includes adaptive feedback learning, voice profile system, anti-AI-voice guidelines, MCP publishing, and skill-gate enforcement hooks.",
-      "version": "0.4.0",
+      "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Includes visual diagram generation (Mermaid), adaptive feedback learning, voice profile system, anti-AI-voice guidelines, MCP publishing, Reddit platform strategy, and skill-gate enforcement hooks.",
+      "version": "0.5.0",
       "author": {
         "name": "Unknown Studio"
       },
       "homepage": "https://github.com/unknown-studio-dev/dev-blog-writer",
       "repository": "https://github.com/unknown-studio-dev/dev-blog-writer",
       "license": "MIT",
-      "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog", "facebook", "threads", "vietnamese", "social-media", "mcp-publishing"],
+      "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog", "facebook", "threads", "reddit", "viblo", "vietnamese", "social-media", "mcp-publishing", "mermaid", "diagrams"],
       "category": "content"
     }
   ]

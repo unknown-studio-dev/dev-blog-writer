@@ -1,10 +1,10 @@
 {
   "name": "dev-blog-writer",
-  "version": "0.4.0",
-  "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Supports Substack, Medium, Hashnode, Dev.to, Ghost, Facebook, and Threads. Includes adaptive feedback learning, voice profile system, short/medium/long post formats, anti-AI-voice guidelines, Vietnamese writing voice, MCP publishing integration, and skill-gate enforcement hooks.",
+  "version": "0.5.0",
+  "description": "Write blog posts and social media content that sounds human — in English, Vietnamese, or mixed. Supports Substack, Medium, Hashnode, Dev.to, Ghost, Viblo, Reddit, Facebook, and Threads. Includes visual diagram generation (Mermaid), adaptive feedback learning, voice profile system, short/medium/long post formats, anti-AI-voice guidelines, Vietnamese writing voice, MCP publishing integration, and skill-gate enforcement hooks.",
   "author": {
     "name": "Unknown Studio"
   },
-  "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog", "facebook", "threads", "vietnamese", "social-media", "mcp-publishing"],
+  "keywords": ["blog", "substack", "medium", "hashnode", "devto", "writing", "build-in-public", "dev-blog", "facebook", "threads", "reddit", "viblo", "vietnamese", "social-media", "mcp-publishing", "mermaid", "diagrams"],
   "license": "MIT"
 }

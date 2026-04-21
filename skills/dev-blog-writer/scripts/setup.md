@@ -77,10 +77,16 @@ If Vietnamese or Mixed is selected, ask:
   - Dev.to
   - Ghost (self-hosted)
   - Viblo
+  - Reddit
   - Facebook (Page and/or Groups)
   - Threads
   - Multiple (pick a default)
   - Other (let the user type)
+
+If the user selects **Reddit**, ask:
+  - Which subreddits do you post to? (helps tailor titles and framing per community)
+  - Is your Reddit account ready? (30+ days old, 200+ comment karma). If not, advise warm-up period — see `references/platforms/reddit.md` for the account warm-up checklist.
+  - Do you prefer self-posts (full content on Reddit) or link posts (link to blog)? Default recommendation: self-post with blog link at the bottom.
 - If the user selects multiple platforms, ask which one is their primary/default.
 
 ### 8. Post sizes
@@ -107,7 +113,17 @@ If Vietnamese or Mixed is selected, ask:
   - If MCPs found, offer to connect them via `suggest_connectors`
   - Document which platforms have direct publishing enabled
 
-### 13. Voice profile (optional, for returning users)
+### 13. Visual diagrams (automatic check)
+
+Check if the Mermaid rendering MCP tool (`validate_and_render_mermaid_diagram`) is available. This determines whether the skill can automatically render diagrams to PNG for platforms that don't support native Mermaid (Medium, Substack, Ghost, Facebook, Threads).
+
+- **If available:** Record `"mermaid_rendering": { "available": true, "method": "mcp" }` in config. No user action needed — just inform them: *"I can generate visual diagrams for your posts and automatically render them for any platform."*
+- **If not available:** Check if the user's platforms need PNG rendering (i.e., any platform other than Dev.to, Hashnode, or Viblo). If yes:
+  - Inform: *"For [platform names], diagrams need to be rendered as images. I can still generate Mermaid diagram source code, but you'd need to export them manually using [Mermaid Live Editor](https://mermaid.live)."*
+  - Record `"mermaid_rendering": { "available": false, "method": null }` in config.
+- **If all platforms support native Mermaid:** PNG rendering isn't needed. Record `"mermaid_rendering": { "available": true, "method": "native" }` in config.
+
+### 14. Voice profile (optional, for returning users)
 - If the user is migrating from a previous setup or reinstalling the skill, ask:
   - Do you have an existing `voice-profile.json` you'd like to import?
   - If yes: copy it into the data directory (`<workspace>/.claude/dev-blog-writer/`). The skill will pick it up and apply all learned preferences immediately.
@@ -158,7 +174,13 @@ After collecting answers, save to `config.json` in the **data directory** (`<wor
     "blog_url": "https://your.substack.com",
     "social": {
       "facebook_page": "https://facebook.com/yourpage",
-      "threads": "https://threads.net/@yourhandle"
+      "threads": "https://threads.net/@yourhandle",
+      "reddit": "https://reddit.com/u/yourhandle"
+    },
+    "reddit": {
+      "target_subreddits": ["programming", "SideProject"],
+      "post_style": "self-post",
+      "account_ready": true
     }
   },
   "post_sizes": ["short", "medium", "long"],
@@ -166,6 +188,10 @@ After collecting answers, save to `config.json` in the **data directory** (`<wor
     "mcp_available": false,
     "platforms_connected": [],
     "mcp_provider": null
+  },
+  "mermaid_rendering": {
+    "available": true,
+    "method": "mcp"
   },
   "reference_posts": []
 }
@@ -184,6 +210,11 @@ If the user selected Vietnamese language, mention that the skill will:
 - Apply Vietnamese emotional expression and particles
 - Follow anti-AI voice patterns specific to Vietnamese
 - Adapt tone to their regional preference
+
+If the user writes long posts (800+ words), mention that the skill can:
+- Suggest visual diagrams (architecture, flowcharts, timelines, etc.) for sections that benefit from a visual explanation
+- Automatically render diagrams in the right format for each platform
+- Keep diagram labels in the same language as the post, with natural code-switching for technical terms
 
 Also mention that the skill learns from feedback:
 - After each draft, it may ask for feedback on tone, structure, and word choices
